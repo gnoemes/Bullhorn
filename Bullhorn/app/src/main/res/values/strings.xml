@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Bullhorn</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="msg.nav.categories">Categories</string>
+    <string name="msg.nav.general">General</string>
+    <string name="msg.nav.politics">Politics</string>
+    <string name="msg.nav.sport">Sport</string>
+    <string name="msg.nav.entertainment">Entertainment</string>
+    <string name="msg.nav.gaming">Gaming</string>
+    <string name="msg.nav.science">Science</string>
+    <string name="msg.nav.technologies">Technologies</string>
+    <string name="msg.nav.business">Business</string>
+    <string name="msg.nav.music">Music</string>
+    <string name="test_string">No one is immune from hackers. Not you, even though you don’t have millions in the bank. Not you, even though you don’t own a company where you think espionage would be a problem</string>
+</resources>
