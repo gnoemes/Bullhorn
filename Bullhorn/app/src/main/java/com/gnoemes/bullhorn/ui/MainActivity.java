@@ -7,13 +7,31 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gnoemes.bullhorn.R;
+import com.gnoemes.bullhorn.models.DataManager;
+import com.gnoemes.bullhorn.models.DataManagerHelper;
+import com.gnoemes.bullhorn.models.database.DatabaseApp;
+import com.gnoemes.bullhorn.models.database.DatabaseHelper;
+import com.gnoemes.bullhorn.models.networking.NewsNetworkApp;
+import com.gnoemes.bullhorn.models.networking.NewsNetworkHelper;
+import com.gnoemes.bullhorn.models.networking.data.NetworkEndpoints;
+import com.gnoemes.bullhorn.models.networking.model.article.Article;
+import com.gnoemes.bullhorn.models.preference.PreferenceApp;
+import com.gnoemes.bullhorn.models.preference.PreferenceHelper;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+//    private final MainViewPresenter presenter;
+//    private final DataManagerHelper dataManagerHelper;
 
 
     @Override
@@ -34,7 +52,30 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        initPresenter();
 
+
+    }
+
+    private void initPresenter() {
+
+        NewsNetworkHelper networkHelper = new NewsNetworkApp();
+        PreferenceHelper preferenceHelper = new PreferenceApp(getApplicationContext());
+        DatabaseHelper databaseHelper = new DatabaseApp(getApplicationContext(),"wqe",1);
+
+        DataManagerHelper managerHelper = new DataManager(getApplicationContext(),networkHelper,preferenceHelper,databaseHelper);
+
+
+        networkHelper.getArticles().getArticlesData("bbc-news", NetworkEndpoints.API_KEY)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Article>() {
+                    @Override
+                    public void accept(Article article) throws Exception {
+                        Log.i("DEVE", "accept: " +article.getArticles().get(0).getTitle());
+                        Log.i("DEVE", "accept: " +article.getArticles().get(1).getTitle());
+                    }
+                });
     }
 
     @Override
