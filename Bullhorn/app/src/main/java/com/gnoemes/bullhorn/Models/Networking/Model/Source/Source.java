@@ -1,10 +1,11 @@
 
 package com.gnoemes.bullhorn.Models.Networking.Model.Source;
 
+import java.util.List;
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
+@Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class Source {
 
@@ -22,10 +23,6 @@ public class Source {
     private String mName;
     @SerializedName("sortBysAvailable")
     private List<String> mSortBysAvailable;
-    @SerializedName("sources")
-    private List<Source> mSources;
-    @SerializedName("status")
-    private String mStatus;
     @SerializedName("url")
     private String mUrl;
     @SerializedName("urlsToLogos")
@@ -85,22 +82,6 @@ public class Source {
 
     public void setSortBysAvailable(List<String> sortBysAvailable) {
         mSortBysAvailable = sortBysAvailable;
-    }
-
-    public List<Source> getSources() {
-        return mSources;
-    }
-
-    public void setSources(List<Source> sources) {
-        mSources = sources;
-    }
-
-    public String getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(String status) {
-        mStatus = status;
     }
 
     public String getUrl() {

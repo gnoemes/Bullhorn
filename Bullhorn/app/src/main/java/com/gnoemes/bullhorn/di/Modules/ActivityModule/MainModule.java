@@ -27,7 +27,7 @@ public class MainModule {
 
     @Provides
     @ActivityScope
-    IMainPresenter provideMainPresenter(DataManagerHelper dataManagerHelper) {
-        return new MainPresenter(mainView,dataManagerHelper);
+    IMainPresenter provideMainPresenter(DataManagerHelper DataManagerHelper) {
+        return new MainPresenter(mainView, DataManagerHelper);
     }
 }

@@ -3,25 +3,18 @@ package com.gnoemes.bullhorn.Models.Networking.Model.Article;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import javax.annotation.Generated;
 
+@Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class Article {
 
-    @SerializedName("articles")
-    private List<Article> mArticles;
     @SerializedName("author")
-    private Object mAuthor;
+    private String mAuthor;
     @SerializedName("description")
     private String mDescription;
     @SerializedName("publishedAt")
     private String mPublishedAt;
-    @SerializedName("sortBy")
-    private String mSortBy;
-    @SerializedName("source")
-    private String mSource;
-    @SerializedName("status")
-    private String mStatus;
     @SerializedName("title")
     private String mTitle;
     @SerializedName("url")
@@ -29,19 +22,11 @@ public class Article {
     @SerializedName("urlToImage")
     private String mUrlToImage;
 
-    public List<Article> getArticles() {
-        return mArticles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        mArticles = articles;
-    }
-
-    public Object getAuthor() {
+    public String getAuthor() {
         return mAuthor;
     }
 
-    public void setAuthor(Object author) {
+    public void setAuthor(String author) {
         mAuthor = author;
     }
 
@@ -59,30 +44,6 @@ public class Article {
 
     public void setPublishedAt(String publishedAt) {
         mPublishedAt = publishedAt;
-    }
-
-    public String getSortBy() {
-        return mSortBy;
-    }
-
-    public void setSortBy(String sortBy) {
-        mSortBy = sortBy;
-    }
-
-    public String getSource() {
-        return mSource;
-    }
-
-    public void setSource(String source) {
-        mSource = source;
-    }
-
-    public String getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(String status) {
-        mStatus = status;
     }
 
     public String getTitle() {

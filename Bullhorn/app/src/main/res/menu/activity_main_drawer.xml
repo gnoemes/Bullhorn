@@ -23,7 +23,7 @@
             android:title="@string/msg.nav.gaming"
             android:tooltipText="20"/>
         <item
-            android:id="@+id/nav_Science"
+            android:id="@+id/nav_science"
             android:title="@string/msg.nav.science" />
         <item
             android:id="@+id/nav_technologies"

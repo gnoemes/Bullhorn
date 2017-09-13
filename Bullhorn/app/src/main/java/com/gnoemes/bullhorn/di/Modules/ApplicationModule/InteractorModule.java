@@ -16,7 +16,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class RepositoryModule {
+public class InteractorModule {
 
     @Provides
     @Singleton
@@ -27,8 +27,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    DataManagerHelper provideDataManagerHelper(Context context, NewsNetworkHelper newsNetworkHelper, DatabaseHelper databaseHelper, PreferenceHelper preferenceHelper) {
-        return new DataManager(context,newsNetworkHelper,databaseHelper,preferenceHelper);
+    DataManagerHelper provideDataManagerHelper(NewsNetworkHelper newsNetworkHelper, DatabaseHelper databaseHelper, PreferenceHelper preferenceHelper) {
+        return new DataManager(newsNetworkHelper,databaseHelper,preferenceHelper);
     }
 
 }

@@ -58,6 +58,13 @@
                 android:maxLines="5"
                 android:textSize="@dimen/text_content_size"
                 tools:text="@string/test_string" />
+            <TextView
+                android:id="@+id/news_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textSize="@dimen/text_content_size"
+                tools:text="2017-09-12"/>
         </LinearLayout>
 
     </LinearLayout>
