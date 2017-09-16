@@ -1,4 +1,4 @@
-package com.gnoemes.bullhorn.di.Modules;
+package com.gnoemes.bullhorn.di;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,5 +7,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FragmentScope {
+public @interface SourceScope {
 }

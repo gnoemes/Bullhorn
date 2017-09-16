@@ -4,13 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gnoemes.bullhorn.Models.Networking.Model.Article.Article;
 import com.gnoemes.bullhorn.R;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,9 +20,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     private List<Article> articles;
     private final OnItemClickListener listener;
 
-    public RecyclerAdapter(List<Article> articles, OnItemClickListener listener) {
-        this.articles = articles;
+    public RecyclerAdapter(OnItemClickListener listener) {
         this.listener = listener;
+        articles = new ArrayList<>();
+    }
+
+    public void addAll(List<Article> articles) {
+        this.articles = articles;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -33,30 +37,41 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position) throws NullPointerException{
+    public void onBindViewHolder(NewsViewHolder holder, int position){
         holder.click(articles.get(position), listener);
-        holder.mTitle.setText(articles.get(position).getTitle());
-        holder.mAuthor.setText(articles.get(position).getAuthor());
-        holder.mDescription.setText(articles.get(position).getDescription());
+        try {
+            holder.mTitle.setText(articles.get(position).getTitle());
+            holder.mDescription.setText(articles.get(position).getDescription());
         String[] date = articles.get(position).getPublishedAt().split("T");
-        holder.mDate.setText(date[0]);
-        Picasso.with(holder.mImage.getContext())
-                .load(articles.get(position).getUrlToImage())
-                .into(holder.mImage);
+            holder.mAuthor.setText(articles.get(position).getAuthor());
+            holder.mDate.setText(date[0]);
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException nE) {
+           if (articles.get(position).getAuthor() == null) {
+               holder.mAuthor.setText(R.string.err_item_no_author);
+           }
+            if (articles.get(position).getPublishedAt() == null) {
+                holder.mDate.setText(R.string.err_item_no_date);
+            }
+            if (articles.get(position).getDescription() == null) {
+                holder.mDescription.setText(R.string.err_item_no_description);
+            }
+            if (articles.get(position).getTitle() == null) {
+                holder.mTitle.setText(R.string.err_item_no_title);
+            }
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (articles == null) {
-            return 0;
-        }
-        return articles.size();
+      return articles == null ? 0 : articles.size();
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.news_preview)
-        ImageView mImage;
         @BindView(R.id.news_title)
         TextView mTitle;
         @BindView(R.id.news_author)

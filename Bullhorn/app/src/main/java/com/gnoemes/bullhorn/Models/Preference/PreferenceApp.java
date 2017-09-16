@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+
 public class PreferenceApp implements PreferenceHelper {
 
     private SharedPreferences sPrefs;
@@ -22,12 +24,12 @@ public class PreferenceApp implements PreferenceHelper {
 
 
     @Override
-    public List<String> getData(final String category) {
-        List<String> sourcesNames = new ArrayList<>();
-        for (int i = 0; i < sources.size(); i++) {
-            sourcesNames.add(sPrefs.getString(category,""));
-        }
-        return sourcesNames;
+    public Observable<List<Source>> getData(final String category) {
+//        List<String> sourcesNames = new ArrayList<>();
+//        for (int i = 0; i < sources.size(); i++) {
+//            sourcesNames.add(sPrefs.getString(category,""));
+//        }
+        return null;
 
     }
 
@@ -37,7 +39,7 @@ public class PreferenceApp implements PreferenceHelper {
     }
 
     @Override
-    public void saveData(Source source) {
+    public void saveData(Observable<List<Source>> source) {
 
     }
 

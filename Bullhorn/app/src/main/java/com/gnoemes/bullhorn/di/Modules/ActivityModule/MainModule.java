@@ -2,7 +2,7 @@ package com.gnoemes.bullhorn.di.Modules.ActivityModule;
 
 
 import com.gnoemes.bullhorn.Models.DataManagerHelper;
-import com.gnoemes.bullhorn.di.Modules.ActivityScope;
+import com.gnoemes.bullhorn.di.ActivityScope;
 import com.gnoemes.bullhorn.ui.Main.IMainPresenter;
 import com.gnoemes.bullhorn.ui.Main.IMainView;
 import com.gnoemes.bullhorn.ui.Main.MainPresenter;

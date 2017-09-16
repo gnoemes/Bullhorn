@@ -4,13 +4,15 @@ import com.gnoemes.bullhorn.Models.Networking.Model.Source.Source;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public interface PreferenceHelper {
 
-    List<String> getData(String category);
+    Observable<List<Source>> getData(String category);
 
     boolean isContains(String category);
 
-    void saveData(Source source);
+    void saveData(Observable<List<Source>> source);
 
     String getId();
 

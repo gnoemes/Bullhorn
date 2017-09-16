@@ -5,9 +5,31 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerlist"
+        android:id="@+id/recyclerList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="4dp">
     </android.support.v7.widget.RecyclerView>
+    <ProgressBar
+        android:id="@+id/articles_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+    <ImageView
+        android:id="@+id/articles_error_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_cloud_off_outline"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
+    <TextView
+        android:id="@+id/articles_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/articles_error_image"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:text="@string/err.articles.no_articles"
+        />
+
 </RelativeLayout>

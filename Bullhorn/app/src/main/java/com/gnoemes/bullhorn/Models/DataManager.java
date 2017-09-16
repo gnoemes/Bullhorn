@@ -1,13 +1,10 @@
 package com.gnoemes.bullhorn.Models;
 
-import android.util.Log;
-
 import com.gnoemes.bullhorn.Models.Database.DatabaseHelper;
 import com.gnoemes.bullhorn.Models.Networking.Model.Article.Article;
 import com.gnoemes.bullhorn.Models.Networking.Model.Source.Source;
 import com.gnoemes.bullhorn.Models.Networking.NewsNetworkHelper;
 import com.gnoemes.bullhorn.Models.Preference.PreferenceHelper;
-import com.gnoemes.bullhorn.Utils.TextUtilites;
 
 import java.util.List;
 
@@ -40,14 +37,13 @@ public class DataManager implements DataManagerHelper {
     }
 
     @Override
-    public Observable<List<Source>> getSources(String category) {
+    public Observable<List<Source>> getSources(final String category) {
 
         return newsNetworkHelper.getSources(category);
     }
 
     @Override
     public Observable<List<Article>> getArticles(String source) {
-        Log.i("DEVE", "getArticles: " + TextUtilites.parseNameToId(source));
-        return newsNetworkHelper.getArticles(TextUtilites.parseNameToId(source));
+        return newsNetworkHelper.getArticles(source);
     }
 }

@@ -8,32 +8,42 @@
             <menu>
         <item
             android:id="@+id/nav_general"
-            android:title="@string/msg.nav.general" />
+            android:title="@string/msg.nav.general"
+            android:icon="@mipmap/ic_forum"
+            />
         <item
             android:id="@+id/nav_politics"
-            android:title="@string/msg.nav.politics" />
+            android:title="@string/msg.nav.politics"
+            android:icon="@mipmap/ic_tie"
+            />
         <item
             android:id="@+id/nav_sport"
-            android:title="@string/msg.nav.sport" />
+            android:title="@string/msg.nav.sport"
+            android:icon="@mipmap/ic_soccer"/>
         <item
             android:id="@+id/nav_entertainment"
-            android:title="@string/msg.nav.entertainment" />
+            android:title="@string/msg.nav.entertainment"
+            android:icon="@mipmap/ic_emoticon_happy"/>
         <item
             android:id="@+id/nav_gaming"
             android:title="@string/msg.nav.gaming"
-            android:tooltipText="20"/>
+            android:icon="@mipmap/ic_google_controller"/>
         <item
             android:id="@+id/nav_science"
-            android:title="@string/msg.nav.science" />
+            android:title="@string/msg.nav.science"
+            android:icon="@mipmap/ic_react"/>
         <item
             android:id="@+id/nav_technologies"
-            android:title="@string/msg.nav.technologies" />
+            android:title="@string/msg.nav.technologies"
+            android:icon="@mipmap/ic_wrench"/>
         <item
             android:id="@+id/nav_business"
-            android:title="@string/msg.nav.business" />
+            android:title="@string/msg.nav.business"
+            android:icon="@mipmap/ic_briefcase"/>
         <item
             android:id="@+id/nav_music"
-            android:title="@string/msg.nav.music" />
+            android:title="@string/msg.nav.music"
+            android:icon="@mipmap/ic_music"/>
             </menu>
 
         </item>

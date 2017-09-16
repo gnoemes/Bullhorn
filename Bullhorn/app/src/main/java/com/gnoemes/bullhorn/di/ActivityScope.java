@@ -1,4 +1,4 @@
-package com.gnoemes.bullhorn.di.Modules;
+package com.gnoemes.bullhorn.di;
 
 
 import java.lang.annotation.Retention;

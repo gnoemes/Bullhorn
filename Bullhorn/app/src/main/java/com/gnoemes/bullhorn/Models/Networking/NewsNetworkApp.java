@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class NewsNetworkApp implements NewsNetworkHelper {
@@ -33,7 +34,7 @@ public class NewsNetworkApp implements NewsNetworkHelper {
             public List<Source> apply(@NonNull Sources sources) throws Exception {
                 return sources.getSources();
             }
-        });
+        }).subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -43,6 +44,6 @@ public class NewsNetworkApp implements NewsNetworkHelper {
             public List<Article> apply(@NonNull Articles articles) throws Exception {
                 return articles.getArticles();
             }
-        });
+        }).subscribeOn(Schedulers.io());
     }
 }

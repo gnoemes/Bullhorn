@@ -16,5 +16,11 @@
     <string name="msg.nav.business">Business</string>
     <string name="msg.nav.music">Music</string>
     <string name="test_string">No one is immune from hackers. Not you, even though you don’t have millions in the bank. Not you, even though you don’t own a company where you think espionage would be a problem</string>
-    <string name="testData">2017-09-12T19:32:37Z</string>
+    <string name="testData">2017-09-12</string>
+    <string name="err.item.no_author">No author</string>
+    <string name="err.item.no_date">No date</string>
+    <string name="err.sources.no_connection">No internet connection</string>
+    <string name="err.articles.no_articles">Can\'t load articles :(</string>
+    <string name="err_item_no_description">No description</string>
+    <string name="err_item_no_title">No title</string>
 </resources>
