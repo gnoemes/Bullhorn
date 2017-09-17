@@ -1,35 +1,34 @@
 package com.gnoemes.bullhorn.Models.Preference;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.gnoemes.bullhorn.Models.Networking.Model.Source.Source;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class PreferenceApp implements PreferenceHelper {
 
     private SharedPreferences sPrefs;
-    private List<Source> sources;
 
     @Inject
     public PreferenceApp(SharedPreferences sPrefs) {
         this.sPrefs = sPrefs;
-        sources = new ArrayList<>();
     }
 
 
     @Override
     public Observable<List<Source>> getData(final String category) {
-//        List<String> sourcesNames = new ArrayList<>();
-//        for (int i = 0; i < sources.size(); i++) {
-//            sourcesNames.add(sPrefs.getString(category,""));
-//        }
-        return null;
+        return Observable.fromArray(getSources(category)).subscribeOn(Schedulers.io());
 
     }
 
@@ -39,25 +38,27 @@ public class PreferenceApp implements PreferenceHelper {
     }
 
     @Override
-    public void saveData(Observable<List<Source>> source) {
-
+    public void saveData(final String category, Observable<List<Source>> source) {
+      source.subscribe(new Consumer<List<Source>>() {
+          @Override
+          public void accept(List<Source> sources) throws Exception {
+              setSources(category,sources);
+          }
+      });
     }
 
 
-    @Override
-    public String getId() {
-        return null;
-    }
-
-    @Override
-    public void setId(String id, String name) {
-        sPrefs.edit().putString(id,name).apply();
+    private List<Source> getSources(String category) {
+        Type type = new TypeToken<List<Source>>() {}.getType();
+        return new Gson().fromJson(sPrefs.getString(category,""),type);
     }
 
 
-    @Override
-    public void setSources(List<Source> sources) {
-        this.sources = sources;
+
+    private void setSources(String category, List<Source> sources) {
+        String jsonString = new Gson().toJson(sources);
+        Log.i("PreferenceApp", "setSources: " + jsonString);
+        sPrefs.edit().putString(category,jsonString).apply();
     }
 
 

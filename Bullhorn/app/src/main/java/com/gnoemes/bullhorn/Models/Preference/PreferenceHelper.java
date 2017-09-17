@@ -12,13 +12,8 @@ public interface PreferenceHelper {
 
     boolean isContains(String category);
 
-    void saveData(Observable<List<Source>> source);
+    void saveData(String category,Observable<List<Source>> source);
 
-    String getId();
-
-    void setId(String id,String name);
-
-    void setSources(List<Source> sources);
 
 
 }

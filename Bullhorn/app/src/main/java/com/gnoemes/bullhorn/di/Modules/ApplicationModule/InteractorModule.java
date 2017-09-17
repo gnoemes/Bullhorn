@@ -21,7 +21,7 @@ public class InteractorModule {
     @Provides
     @Singleton
     DatabaseHelper provideDatabaseHelper(Context context) {
-        return new DatabaseApp(context,"articles",1);
+        return new DatabaseApp(context);
     }
 
 

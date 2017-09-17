@@ -9,9 +9,9 @@ import io.reactivex.Observable;
 
 public interface DataManagerHelper {
 
-   void saveSourceData(Source source);
+   Observable<List<Source>> saveSourceData(String category,Observable<List<Source>> source);
 
-   void saveArticleData(Article article);
+   Observable<List<Article>> saveArticleData(String source, Observable<List<Article>> article);
 
     Observable<List<Source>> getSources(String category);
 

@@ -27,23 +27,24 @@ public class DataManager implements DataManagerHelper {
 
 
     @Override
-    public void saveSourceData(Source source) {
-
+    public Observable<List<Source>> saveSourceData(String category,Observable<List<Source>> source) {
+        preferenceHelper.saveData(category,source);
+        return source;
     }
 
     @Override
-    public void saveArticleData(Article article) {
-
+    public Observable<List<Article>> saveArticleData(String source, Observable<List<Article>> article) {
+        databaseHelper.saveArticles(source,article);
+        return article;
     }
 
     @Override
     public Observable<List<Source>> getSources(final String category) {
-
-        return newsNetworkHelper.getSources(category);
+        return preferenceHelper.isContains(category) ? preferenceHelper.getData(category) : saveSourceData(category,newsNetworkHelper.getSources(category));
     }
 
     @Override
     public Observable<List<Article>> getArticles(String source) {
-        return newsNetworkHelper.getArticles(source);
+        return databaseHelper.isContains(source) ? databaseHelper.getArticles(source): saveArticleData(source,newsNetworkHelper.getArticles(source));
     }
 }
