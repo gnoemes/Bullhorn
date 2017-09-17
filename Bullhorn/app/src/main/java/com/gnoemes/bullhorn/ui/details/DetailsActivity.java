@@ -99,7 +99,9 @@ public class DetailsActivity  extends BaseActivity{
                                 .into(imageView, new Callback() {
                                     @Override
                                     public void onSuccess() {
-                                        progressBar.setVisibility(View.GONE);
+                                        if (progressBar != null) {
+                                            progressBar.setVisibility(View.GONE);
+                                        }
                                     }
 
                                     @Override

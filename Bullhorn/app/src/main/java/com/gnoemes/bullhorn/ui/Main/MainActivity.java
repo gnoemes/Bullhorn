@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -47,8 +48,12 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
+        if (savedInstanceState == null) {
+            loadFragment("general");
+            getSupportActionBar().setTitle(getResources().getString(R.string.msg_nav_general));
+        } else {
+          getSupportActionBar().setTitle(savedInstanceState.getString("category"));
+        }
     }
 
     @Override
@@ -126,7 +131,7 @@ public class MainActivity extends BaseActivity
 
 
         }
-
+        getSupportActionBar().setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -139,6 +144,12 @@ public class MainActivity extends BaseActivity
         fragmentTransaction.replace(R.id.source_container, fragment,category).commit();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("notFirst",false);
+        outState.putString("category", (String) getSupportActionBar().getTitle());
+    }
 
     @Override
     public void showLoading() {

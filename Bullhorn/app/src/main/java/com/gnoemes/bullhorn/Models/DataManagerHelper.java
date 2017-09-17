@@ -15,7 +15,7 @@ public interface DataManagerHelper {
 
     Observable<List<Source>> getSources(String category);
 
-    Observable<List<Article>> getArticles(String source);
+    Observable<List<Article>> getArticles(String source, boolean force);
 
 
 }

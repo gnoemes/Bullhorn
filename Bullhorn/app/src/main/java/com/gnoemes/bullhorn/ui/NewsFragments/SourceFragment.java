@@ -1,6 +1,7 @@
 package com.gnoemes.bullhorn.ui.NewsFragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -46,13 +47,16 @@ public class SourceFragment extends BaseFragment implements ISourceView{
     @BindView(R.id.pagerTab)
     TabLayout pagerTab;
 
+    private static final String ITEM_KEY = "current_item";
     private String category;
     private SourceComponent sourceComponent;
-
+    private int page;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         category = getTag();
+        setRetainInstance(true);
+
     }
 
     @Nullable
@@ -66,7 +70,10 @@ public class SourceFragment extends BaseFragment implements ISourceView{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this,view);
         viewPager.setAdapter(pagerAdapter);
+
         super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     @Override
@@ -79,9 +86,22 @@ public class SourceFragment extends BaseFragment implements ISourceView{
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        final SharedPreferences.Editor ed = getActivity().getSharedPreferences("name", android.content.Context.MODE_PRIVATE).edit();
+        ed.putInt(ITEM_KEY, viewPager.getCurrentItem());
+        ed.apply();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         presenter.loadSourcesList(category);
+        final SharedPreferences sp = getActivity().getSharedPreferences("name",
+                android.content.Context.MODE_PRIVATE);
+        viewPager.setCurrentItem(sp.getInt(ITEM_KEY, 0));
+
+
     }
 
     @Override
@@ -112,6 +132,12 @@ public class SourceFragment extends BaseFragment implements ISourceView{
     @Override
     public void updateSourceList(List<Source> sources) {
         pagerAdapter.updateAdapter(sources);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
     ProgressBar progressBar;
     @BindView(R.id.recyclerList)
     RecyclerView recyclerView;
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeResresh;
 
     @Inject
     IArticlesPresenter presenter;
@@ -55,6 +58,7 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sourceId = getArguments().getString(SOURCE_KEY);
+//        setRetainInstance(true);
 
         recyclerAdapter = new RecyclerAdapter(new RecyclerAdapter.OnItemClickListener() {
             @Override
@@ -73,6 +77,15 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
         ButterKnife.bind(this,view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerAdapter);
+
+
+        swipeResresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.loadArticlesList(sourceId,true);
+                swipeResresh.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -105,7 +118,7 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadArticlesList(sourceId);
+        presenter.loadArticlesList(sourceId,false);
     }
 
     @Override

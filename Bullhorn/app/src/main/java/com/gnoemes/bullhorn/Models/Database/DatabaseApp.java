@@ -67,8 +67,11 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select " + COLUMN_SOURCE_ID +" from " + TABLE_NAME  + " where " + COLUMN_SOURCE_ID + " = '" + source +"'",null);
 
-        Log.i("DATABASE", "isContains: " + (cursor != null));
-        return  cursor != null && cursor.getCount() > 0;
+        Log.i("DATABASE", "isContains: " + (cursor != null && cursor.getCount() > 0));
+        boolean isContains = cursor != null && cursor.getCount() > 0;
+        cursor.close();
+        db.close();
+        return isContains;
 }
 
 

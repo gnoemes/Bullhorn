@@ -44,7 +44,10 @@ public class DataManager implements DataManagerHelper {
     }
 
     @Override
-    public Observable<List<Article>> getArticles(String source) {
-        return databaseHelper.isContains(source) ? databaseHelper.getArticles(source): saveArticleData(source,newsNetworkHelper.getArticles(source));
+    public Observable<List<Article>> getArticles(final String source, boolean force) {
+        if (force) {
+            return newsNetworkHelper.getArticles(source);
+        }
+        return databaseHelper.isContains(source) ? databaseHelper.getArticles(source): newsNetworkHelper.getArticles(source);
     }
 }
