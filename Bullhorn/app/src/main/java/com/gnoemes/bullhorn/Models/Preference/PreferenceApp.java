@@ -13,7 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class PreferenceApp implements PreferenceHelper {
@@ -39,12 +38,7 @@ public class PreferenceApp implements PreferenceHelper {
 
     @Override
     public void saveData(final String category, Observable<List<Source>> source) {
-      source.subscribe(new Consumer<List<Source>>() {
-          @Override
-          public void accept(List<Source> sources) throws Exception {
-              setSources(category,sources);
-          }
-      });
+      source.subscribe(sources -> setSources(category,sources));
     }
 
 

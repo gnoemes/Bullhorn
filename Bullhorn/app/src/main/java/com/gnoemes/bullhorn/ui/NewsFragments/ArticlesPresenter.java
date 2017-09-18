@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -30,9 +29,8 @@ public class ArticlesPresenter implements IArticlesPresenter {
     @Override
     public void loadArticlesList(String source,boolean force) {
         articlesView.showLoad();
-        Observable<List<Article>> obs = dataManagerHelper.getArticles(source,force);
-        dataManagerHelper.saveArticleData(source,obs);
-            obs.observeOn(AndroidSchedulers.mainThread())
+        dataManagerHelper.getArticles(source,force)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Article>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {

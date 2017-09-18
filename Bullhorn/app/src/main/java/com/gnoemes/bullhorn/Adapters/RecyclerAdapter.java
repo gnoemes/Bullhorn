@@ -87,12 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         }
 
         public void click(final Article article, final OnItemClickListener listener) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onClick(article);
-                }
-            });
+            itemView.setOnClickListener(view -> listener.onClick(article));
         }
 
     }

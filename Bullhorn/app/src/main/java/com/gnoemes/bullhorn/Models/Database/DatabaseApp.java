@@ -9,9 +9,8 @@ import android.util.Log;
 
 import com.gnoemes.bullhorn.Models.Networking.Model.Article.Article;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,21 +29,31 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
     @Inject
     public DatabaseApp(Context context) {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
-
     }
 
     @Override
-    public void saveArticles( String source,  Observable<List<Article>> articles) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public void saveArticles(final String source, Observable<List<Article>> articles) {
+        final SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues cv = new ContentValues();
-        String jsonArticlesList = new Gson().toJson(articles.blockingFirst());
 
-        cv.put(COLUMN_SOURCE_ID,source);
-        cv.put(COLUMN_JSON_STRING,jsonArticlesList);
 
-        db.insert(TABLE_NAME,null,cv);
-        db.close();
+        articles.subscribeOn(Schedulers.computation())
+                .subscribe(articles1 -> {
+                    for (Article a: articles1) {
+                        ContentValues cv = new ContentValues();
+                        String jsonArticle = new Gson().toJson(a);
+                        cv.put(COLUMN_SOURCE_ID, source);
+                        cv.put(COLUMN_JSON_STRING,jsonArticle);
+
+                        long count = db.insertWithOnConflict(TABLE_NAME,null,cv,SQLiteDatabase.CONFLICT_REPLACE);
+
+//                            int deleted = db.delete(TABLE_NAME,null,null);
+                        Log.i("DATABASE", "SAVED: " + count );
+                    }
+                });
+
+
+//        db.close();
         Log.i("DATABASE", "saveArticles: ");
 
     }
@@ -53,24 +62,29 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
     public Observable<List<Article>> getArticles(String source) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("select " + COLUMN_JSON_STRING +" from " + TABLE_NAME  + " where " + COLUMN_SOURCE_ID + " = '" + source +"'",null);
+        Cursor cursor = db.query(TABLE_NAME,new String[] {COLUMN_JSON_STRING},COLUMN_SOURCE_ID + " = ? ",new String[] {source},null,null,null);
         cursor.moveToFirst();
-        Type type = new TypeToken<List<Article>>() {}.getType();
-        Log.i("DATABASE", "getArticles: ");
-        List<Article> articles = new Gson().fromJson(cursor.getString(cursor.getColumnIndex(COLUMN_JSON_STRING)),type);
-        db.close();
+        List<Article> articles = new ArrayList<>();
+        do {
+            for (String cn: cursor.getColumnNames()) {
+                articles.add(new Gson().fromJson(cursor.getString(cursor.getColumnIndex(cn)),Article.class));
+                Log.i("DATABASE", "getArticles: " + cursor.getString(cursor.getColumnIndex(cn)));
+            }
+
+        }while (cursor.moveToNext());
+
         return Observable.fromArray(articles).subscribeOn(Schedulers.io());
     }
 
     @Override
     public boolean isContains(String source) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select " + COLUMN_SOURCE_ID +" from " + TABLE_NAME  + " where " + COLUMN_SOURCE_ID + " = '" + source +"'",null);
+        Cursor cursor = db.query(TABLE_NAME,new String[] {COLUMN_JSON_STRING},COLUMN_SOURCE_ID + " = ? ",new String[] {source},null,null,null);
 
-        Log.i("DATABASE", "isContains: " + (cursor != null && cursor.getCount() > 0));
         boolean isContains = cursor != null && cursor.getCount() > 0;
+        Log.i("DATABASE", "isContains: " + isContains);
         cursor.close();
-        db.close();
+//        db.close();
         return isContains;
 }
 
@@ -81,13 +95,12 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_NAME + "("
                 +  "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_SOURCE_ID + " TEXT,"
-                + COLUMN_JSON_STRING + " TEXT" + ")");
+                + COLUMN_JSON_STRING + " TEXT UNIQUE" + ")");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(sqLiteDatabase);
     }

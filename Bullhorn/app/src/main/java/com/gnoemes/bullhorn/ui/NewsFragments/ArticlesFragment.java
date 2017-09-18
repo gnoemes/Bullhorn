@@ -60,12 +60,9 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
         sourceId = getArguments().getString(SOURCE_KEY);
 //        setRetainInstance(true);
 
-        recyclerAdapter = new RecyclerAdapter(new RecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(Article item) {
-                Log.i("DEVE", "onClick: Clicked " + item.getTitle());
-                presenter.itemClicked(item);
-            }
+        recyclerAdapter = new RecyclerAdapter(item -> {
+            Log.i("DEVE", "onClick: Clicked " + item.getTitle());
+            presenter.itemClicked(item);
         });
     }
 
@@ -79,12 +76,9 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
         recyclerView.setAdapter(recyclerAdapter);
 
 
-        swipeResresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.loadArticlesList(sourceId,true);
-                swipeResresh.setRefreshing(false);
-            }
+        swipeResresh.setOnRefreshListener(() -> {
+            presenter.loadArticlesList(sourceId,true);
+            swipeResresh.setRefreshing(false);
         });
 
     }
