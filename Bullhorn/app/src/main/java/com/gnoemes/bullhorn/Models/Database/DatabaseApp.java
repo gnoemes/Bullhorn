@@ -35,8 +35,6 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
     public void saveArticles(final String source, Observable<List<Article>> articles) {
         final SQLiteDatabase db = this.getWritableDatabase();
 
-
-
         articles.subscribeOn(Schedulers.computation())
                 .subscribe(articles1 -> {
                     for (Article a: articles1) {
@@ -46,13 +44,9 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
                         cv.put(COLUMN_JSON_STRING,jsonArticle);
 
                         long count = db.insertWithOnConflict(TABLE_NAME,null,cv,SQLiteDatabase.CONFLICT_REPLACE);
-
-//                            int deleted = db.delete(TABLE_NAME,null,null);
                         Log.i("DATABASE", "SAVED: " + count );
                     }
                 });
-
-
 //        db.close();
         Log.i("DATABASE", "saveArticles: ");
 
@@ -61,7 +55,6 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
     @Override
     public Observable<List<Article>> getArticles(String source) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.query(TABLE_NAME,new String[] {COLUMN_JSON_STRING},COLUMN_SOURCE_ID + " = ? ",new String[] {source},null,null,null);
         cursor.moveToFirst();
         List<Article> articles = new ArrayList<>();
@@ -80,7 +73,6 @@ public class DatabaseApp extends SQLiteOpenHelper implements DatabaseHelper {
     public boolean isContains(String source) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME,new String[] {COLUMN_JSON_STRING},COLUMN_SOURCE_ID + " = ? ",new String[] {source},null,null,null);
-
         boolean isContains = cursor != null && cursor.getCount() > 0;
         Log.i("DATABASE", "isContains: " + isContains);
         cursor.close();

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.gnoemes.bullhorn.Models.Networking.Model.Article.Article;
 import com.gnoemes.bullhorn.R;
+import com.gnoemes.bullhorn.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         try {
             holder.mTitle.setText(articles.get(position).getTitle());
             holder.mDescription.setText(articles.get(position).getDescription());
-        String[] date = articles.get(position).getPublishedAt().split("T");
             holder.mAuthor.setText(articles.get(position).getAuthor());
-            holder.mDate.setText(date[0]);
+            holder.mDate.setText(Utils.formatDate(articles.get(position)));
         }
         catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -52,9 +52,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         catch (NullPointerException nE) {
            if (articles.get(position).getAuthor() == null) {
                holder.mAuthor.setText(R.string.err_item_no_author);
-           }
-            if (articles.get(position).getPublishedAt() == null) {
-                holder.mDate.setText(R.string.err_item_no_date);
             }
             if (articles.get(position).getDescription() == null) {
                 holder.mDescription.setText(R.string.err_item_no_description);

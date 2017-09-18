@@ -21,7 +21,6 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void loadSources(String category) {
 
-
     }
 
     @Override

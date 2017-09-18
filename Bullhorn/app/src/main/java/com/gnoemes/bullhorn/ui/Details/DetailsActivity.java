@@ -53,24 +53,15 @@ public class DetailsActivity  extends BaseActivity{
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         ArticleParcelable parcelable =  getIntent().getParcelableExtra("article");
         loadArticle(parcelable);
 
         final String articleIUrl = parcelable.getUrl();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                networkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleIUrl));
-                startActivity(networkIntent);
-            }
+        fab.setOnClickListener(view -> {
+            networkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleIUrl));
+            startActivity(networkIntent);
         });
     }
 
@@ -116,12 +107,6 @@ public class DetailsActivity  extends BaseActivity{
 
     @Override
     public void setupComponent(AppComponent upComponent) {
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     @Override

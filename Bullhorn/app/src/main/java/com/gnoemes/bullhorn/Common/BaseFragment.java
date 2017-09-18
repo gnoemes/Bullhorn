@@ -14,7 +14,6 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupComponent(App.getApp(getActivity()).getAppComponent());
-
     }
 
     protected abstract void setupComponent(AppComponent appComponent);

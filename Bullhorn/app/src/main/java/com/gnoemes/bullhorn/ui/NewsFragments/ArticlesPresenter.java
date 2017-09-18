@@ -5,6 +5,7 @@ import android.util.Log;
 import com.gnoemes.bullhorn.Models.DataManagerHelper;
 import com.gnoemes.bullhorn.Models.Networking.Model.Article.Article;
 import com.gnoemes.bullhorn.Models.Preference.ArticleParcelable;
+import com.gnoemes.bullhorn.Utils.Utils;
 
 import java.util.List;
 
@@ -53,14 +54,11 @@ public class ArticlesPresenter implements IArticlesPresenter {
                         articlesView.showContent();
                     }
                 });
-
     }
 
     @Override
     public void itemClicked(Article item) {
-        String[] date;
-        date = item.getPublishedAt() == null ? new String[]{"No date"} :item.getPublishedAt().split("T");
-        ArticleParcelable parcelable = new ArticleParcelable(item.getAuthor(),item.getDescription(),date[0],item.getTitle(),item.getUrl(),item.getUrlToImage());
+        ArticleParcelable parcelable = new ArticleParcelable(item.getAuthor(),item.getDescription(), Utils.formatDate(item),item.getTitle(),item.getUrl(),item.getUrlToImage());
         Log.i("DEVE", "itemClicked: " + parcelable.getTitle());
         articlesView.showDetails(parcelable);
     }

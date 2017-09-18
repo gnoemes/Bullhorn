@@ -44,7 +44,7 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
     @BindView(R.id.recyclerList)
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefresh)
-    SwipeRefreshLayout swipeResresh;
+    SwipeRefreshLayout swipeRefresh;
 
     @Inject
     IArticlesPresenter presenter;
@@ -75,10 +75,9 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerAdapter);
 
-
-        swipeResresh.setOnRefreshListener(() -> {
+        swipeRefresh.setOnRefreshListener(() -> {
             presenter.loadArticlesList(sourceId,true);
-            swipeResresh.setRefreshing(false);
+            swipeRefresh.setRefreshing(false);
         });
 
     }
@@ -98,7 +97,6 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
         articleComponent.inject(this);
     }
 
-
     public static Fragment newInstance(String sourceName) {
         ArticlesFragment fragment = new ArticlesFragment();
         Bundle bundle = new Bundle();
@@ -107,7 +105,6 @@ public class ArticlesFragment extends BaseFragment implements IArticlesView{
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     @Override
     public void onResume() {

@@ -21,14 +21,10 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetModule.class, PreferenceModule.class, InteractorModule.class})
 public interface AppComponent {
 
-
     Context context();
     NewsNetworkHelper mNewsNetworkHelper();
     PreferenceHelper mPreferenceHelper();
     DatabaseHelper mDatabaseHelper();
     DataManagerHelper mDataManagerHelper();
-
-
     void inject(App app);
-
 }

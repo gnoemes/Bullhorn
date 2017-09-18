@@ -6,5 +6,4 @@ public interface IMainPresenter {
 
     void loadArticles(int sourceId);
 
-
 }

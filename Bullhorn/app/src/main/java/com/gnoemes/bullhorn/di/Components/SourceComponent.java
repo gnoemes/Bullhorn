@@ -13,7 +13,6 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules =  SourceModule.class)
 public interface SourceComponent {
 
-
     ISourceView mSourceView();
     ISourcePresenter mSourcePresenter();
     void inject(SourceFragment sourceFragment);
