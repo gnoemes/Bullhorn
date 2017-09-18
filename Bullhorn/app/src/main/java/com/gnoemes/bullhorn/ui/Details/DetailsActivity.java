@@ -1,4 +1,4 @@
-package com.gnoemes.bullhorn.ui.details;
+package com.gnoemes.bullhorn.ui.Details;
 
 import android.content.Intent;
 import android.net.Uri;

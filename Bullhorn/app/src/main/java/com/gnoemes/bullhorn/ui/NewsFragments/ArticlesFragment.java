@@ -24,7 +24,7 @@ import com.gnoemes.bullhorn.di.Components.AppComponent;
 import com.gnoemes.bullhorn.di.Components.ArticleComponent;
 import com.gnoemes.bullhorn.di.Components.DaggerArticleComponent;
 import com.gnoemes.bullhorn.di.Modules.FragmentModule.ArticlesModule;
-import com.gnoemes.bullhorn.ui.details.DetailsActivity;
+import com.gnoemes.bullhorn.ui.Details.DetailsActivity;
 
 import java.util.List;
 
