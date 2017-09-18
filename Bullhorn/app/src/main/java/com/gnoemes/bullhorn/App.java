@@ -3,9 +3,9 @@ package com.gnoemes.bullhorn;
 import android.app.Application;
 import android.content.Context;
 
-import com.gnoemes.bullhorn.di.Components.AppComponent;
-import com.gnoemes.bullhorn.di.Components.DaggerAppComponent;
-import com.gnoemes.bullhorn.di.Modules.ApplicationModule.AppModule;
+import com.gnoemes.bullhorn.di.components.AppComponent;
+import com.gnoemes.bullhorn.di.components.DaggerAppComponent;
+import com.gnoemes.bullhorn.di.modules.application.AppModule;
 
 public class App extends Application {
 
