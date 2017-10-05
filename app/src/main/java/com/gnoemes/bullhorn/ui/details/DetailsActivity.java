@@ -11,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gnoemes.bullhorn.common.BaseActivity;
-import com.gnoemes.bullhorn.models.preference.ArticleParcelable;
+import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.gnoemes.bullhorn.R;
-import com.gnoemes.bullhorn.di.components.AppComponent;
+import com.gnoemes.bullhorn.data.source.preference.ArticleParcelable;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -23,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class DetailsActivity  extends BaseActivity{
+public class DetailsActivity  extends MvpAppCompatActivity{
 
     @BindView(R.id.details_toolbar)
     Toolbar toolbar;
@@ -80,6 +79,7 @@ public class DetailsActivity  extends BaseActivity{
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
+                        if (progressBar != null)
                             progressBar.setVisibility(View.GONE);
                         }
 
@@ -103,10 +103,6 @@ public class DetailsActivity  extends BaseActivity{
                         }
                     });
 
-    }
-
-    @Override
-    public void setupComponent(AppComponent upComponent) {
     }
 
     @Override

@@ -1,13 +1,14 @@
 package com.gnoemes.bullhorn.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gnoemes.bullhorn.models.networking.model.article.Article;
 import com.gnoemes.bullhorn.R;
+import com.gnoemes.bullhorn.data.model.article.ArticleEntity;
 import com.gnoemes.bullhorn.utils.Utils;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsViewHolder> {
 
-    private List<Article> articles;
+    private List<ArticleEntity> articles;
     private final OnItemClickListener listener;
 
     public RecyclerAdapter(OnItemClickListener listener) {
@@ -26,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         articles = new ArrayList<>();
     }
 
-    public void addAll(List<Article> articles) {
+    public void addAll(List<ArticleEntity> articles) {
         this.articles = articles;
         notifyDataSetChanged();
     }
@@ -40,25 +41,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position){
         holder.click(articles.get(position), listener);
-        try {
-            holder.mTitle.setText(articles.get(position).getTitle());
-            holder.mDescription.setText(articles.get(position).getDescription());
-            holder.mAuthor.setText(articles.get(position).getAuthor());
-            holder.mDate.setText(Utils.formatDate(articles.get(position)));
+        String title = articles.get(position).getTitle();
+        String description = articles.get(position).getDescription();
+        String author = articles.get(position).getAuthor();
+        String date = Utils.formatDate(articles.get(position));
+        if (TextUtils.isEmpty(title)) {
+            holder.mTitle.setText(R.string.err_item_no_title);
+        } else  {
+            holder.mTitle.setText(title);
         }
-        catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        if (TextUtils.isEmpty(description)) {
+            holder.mDescription.setText(R.string.err_item_no_description);
+        } else  {
+            holder.mDescription.setText(description);
         }
-        catch (NullPointerException nE) {
-           if (articles.get(position).getAuthor() == null) {
-               holder.mAuthor.setText(R.string.err_item_no_author);
-            }
-            if (articles.get(position).getDescription() == null) {
-                holder.mDescription.setText(R.string.err_item_no_description);
-            }
-            if (articles.get(position).getTitle() == null) {
-                holder.mTitle.setText(R.string.err_item_no_title);
-            }
+        if (TextUtils.isEmpty(author)) {
+            holder.mAuthor.setText(R.string.err_item_no_author);
+        } else  {
+            holder.mAuthor.setText(author);
+        }
+        if (TextUtils.isEmpty(date)) {
+            holder.mDescription.setText(R.string.err_item_no_date);
+        } else  {
+            holder.mDescription.setText(date);
         }
     }
 
@@ -83,13 +88,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             ButterKnife.bind(this, itemView);
         }
 
-        public void click(final Article article, final OnItemClickListener listener) {
+        public void click(final ArticleEntity article, final OnItemClickListener listener) {
             itemView.setOnClickListener(view -> listener.onClick(article));
         }
-
     }
 
     public interface OnItemClickListener {
-        void onClick(Article item);
+        void onClick(ArticleEntity item);
     }
 }

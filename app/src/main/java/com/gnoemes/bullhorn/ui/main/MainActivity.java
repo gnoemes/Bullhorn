@@ -6,28 +6,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
-import com.gnoemes.bullhorn.common.BaseActivity;
 import com.gnoemes.bullhorn.R;
-import com.gnoemes.bullhorn.di.components.AppComponent;
-import com.gnoemes.bullhorn.di.components.DaggerMainComponent;
-import com.gnoemes.bullhorn.di.components.MainComponent;
-import com.gnoemes.bullhorn.di.modules.activity.MainModule;
-import com.gnoemes.bullhorn.ui.news.SourceFragment;
-
-import javax.inject.Inject;
+import com.gnoemes.bullhorn.ui.sources.SourceFragment;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, IMainView{
-
-    @Inject
-    IMainPresenter presenter;
-
-    private MainComponent mainComponent;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +45,6 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void setupComponent(AppComponent upComponent) {
-        mainComponent = DaggerMainComponent.builder()
-                .appComponent(upComponent)
-                .mainModule(new MainModule(this))
-                .build();
-        mainComponent.inject(this);
-    }
-
-
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -78,7 +57,6 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         switch (id) {
@@ -109,8 +87,6 @@ public class MainActivity extends BaseActivity
             case R.id.nav_music:
                 loadFragment("music");
                 break;
-
-
         }
         getSupportActionBar().setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -119,7 +95,6 @@ public class MainActivity extends BaseActivity
     }
 
     private void loadFragment(String category) {
-
         SourceFragment fragment = new SourceFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.source_container, fragment,category).commit();
@@ -132,14 +107,10 @@ public class MainActivity extends BaseActivity
         outState.putString("category", (String) getSupportActionBar().getTitle());
     }
 
-    @Override
-    public void showLoading() {
-
-    }
 
     @Override
-    public void showContent() {
-
+    protected void onPause() {
+        super.onPause();
+        Log.i("INSTANCE", "onPause: ");
     }
-
 }
