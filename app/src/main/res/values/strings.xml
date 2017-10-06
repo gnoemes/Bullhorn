@@ -20,7 +20,7 @@
     <string name="err.item.no_author">No author</string>
     <string name="err.item.no_date">No date</string>
     <string name="err.sources.no_connection">No internet connection</string>
-    <string name="err.articles.no_articles">Can\'t load articles :(</string>
+    <string name="err.articles.no_articles">No local data. Swipe down to refresh</string>
     <string name="err_item_no_description">No description</string>
     <string name="err_item_no_title">No title</string>
 </resources>
