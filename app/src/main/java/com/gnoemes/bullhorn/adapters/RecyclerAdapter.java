@@ -61,9 +61,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             holder.mAuthor.setText(author);
         }
         if (TextUtils.isEmpty(date)) {
-            holder.mDescription.setText(R.string.err_item_no_date);
+            holder.mDate.setText(R.string.err_item_no_date);
         } else  {
-            holder.mDescription.setText(date);
+            holder.mDate.setText(date);
         }
     }
 
