@@ -16,9 +16,10 @@ android:
     # Additional components
     - extra-google-m2repository
     - extra-android-m2repository
+before_install:
+ - chmod +x gradlew
 script:
    - ./gradlew build connectedCheck
-
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
