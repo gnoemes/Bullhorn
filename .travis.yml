@@ -16,10 +16,12 @@ android:
     # Additional components
     - extra-google-m2repository
     - extra-android-m2repository
+    - addon-google_apis-google-19
+    
 before_install:
  - chmod +x gradlew
 script:
-   - ./gradlew build connectedCheck
+- "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
