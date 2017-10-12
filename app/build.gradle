@@ -30,68 +30,68 @@ dependencies {
 
 
     //Support
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.android.support:appcompat-v7:'$supportLibrary"
+    compile "com.android.support:support-v4:$supportLibrary"
+    compile "com.android.support:design:$supportLibrary"
+    compile "com.android.support:cardview-v7:$supportLibrary"
+    compile "com.android.support:recyclerview-v7:$supportLibrary"
+    compile "com.android.support.constraint:constraint-layout:$constraintLayout"
 
     //Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile "com.squareup.retrofit2:retrofit:$retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
 
     //RxJava
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
+    compile "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    compile "io.reactivex.rxjava2:rxjava:$rxJava2"
 
     //Images
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.squareup.picasso:picasso:$picasso"
 
     //Room
-    compile 'android.arch.persistence.room:runtime:1.0.0-beta1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0-beta1'
-    compile 'android.arch.persistence.room:rxjava2:1.0.0-beta1'
+    compile "android.arch.persistence.room:runtime:$room"
+    annotationProcessor "android.arch.persistence.room:compiler:$room"
+    compile "android.arch.persistence.room:rxjava2:$room"
 
     //Moxy
-    compile 'com.arello-mobile:moxy:1.5.3'
-    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
-    compile 'com.arello-mobile:moxy-app-compat:1.5.3'
+    compile "com.arello-mobile:moxy:$moxy"
+    annotationProcessor "com.arello-mobile:moxy-compiler:$moxy"
+    compile "com.arello-mobile:moxy-app-compat:$moxy"
 
     //Dagger 2
-    compile "com.google.dagger:dagger:2.9"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.9"
-    provided 'javax.annotation:jsr250-api:1.0'
+    compile "com.google.dagger:dagger:$dagger2"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger2"
+    provided "javax.annotation:jsr250-api:$jsr250"
 
     //ButterKnife
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile "com.jakewharton:butterknife:$butterknife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
 
     //Unit test
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile 'org.hamcrest:hamcrest-all:1.3'
-    testCompile "org.powermock:powermock-api-mockito:1.6.5"
-    testCompile "org.powermock:powermock-module-junit4-rule-agent:1.6.5"
-    testCompile "org.powermock:powermock-module-junit4-rule:1.6.5"
-    testCompile "org.powermock:powermock-module-junit4:1.6.5"
+    testCompile "junit:junit:$junit"
+    testCompile "org.mockito:mockito-all:$mockito"
+    testCompile "org.hamcrest:hamcrest-all:$hamcrest"
+    testCompile "org.powermock:powermock-api-mockito:$powerMock"
+    testCompile "org.powermock:powermock-module-junit4-rule-agent:$powerMock"
+    testCompile "org.powermock:powermock-module-junit4-rule:$powerMock"
+    testCompile "org.powermock:powermock-module-junit4:$powerMock"
 
     //Instrumental test
-    androidTestCompile 'org.mockito:mockito-android:2.7.15'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
-    androidTestCompile 'com.android.support:support-annotations:26.1.0'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    androidTestCompile "org.mockito:mockito-android:$mockitoAndroid"
+    androidTestCompile "com.android.support.test:runner:$supportTest"
+    androidTestCompile "com.android.support.test:rules:$supportTest"
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espresso"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$espresso"
+    androidTestCompile "com.android.support:support-annotations:$supportLibrary"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espresso"
 
     //Resolution
     configurations.all {
-        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
-        resolutionStrategy.force 'com.android.support:support-v4:26.1.0'
-        resolutionStrategy.force 'com.android.support:appcompat-v7:26.1.0'
-        resolutionStrategy.force 'com.android.support:design:26.1.0'
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
+        resolutionStrategy.force "com.android.support:support-annotations:$supportLibrary"
+        resolutionStrategy.force "com.android.support:support-v4:$supportLibrary"
+        resolutionStrategy.force "com.android.support:appcompat-v7:$supportLibrary"
+        resolutionStrategy.force "com.android.support:design:$supportLibrary"
+        resolutionStrategy.force "com.google.code.findbugs:jsr305:$jsr305"
     }
 }
